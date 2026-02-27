@@ -1,3 +1,9 @@
+const express = require('express');
+const sqlite3 = require('sqlite3').verbose();
+const cors = require('cors');
+const bodyParser = require('body-parser');
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs');
 const { Pool } = require('pg');
 require('dotenv').config();
 
@@ -112,38 +118,6 @@ const initDb = async () => {
 };
 
 initDb();
-
-// Setup Schema
-db.serialize(() => {
-  // Users Table
-  db.run(`CREATE TABLE IF NOT EXISTS users (
-    id TEXT PRIMARY KEY,
-    username TEXT UNIQUE,
-    password TEXT,
-    email TEXT,
-    created_at INTEGER
-  )`);
-
-  db.run(`CREATE TABLE IF NOT EXISTS parties (
-    id TEXT PRIMARY KEY, user_id TEXT, name TEXT, phone TEXT, email TEXT, gstin TEXT, 
-    address TEXT, state TEXT, type TEXT, balance REAL, 
-    updated_at INTEGER, is_deleted INTEGER DEFAULT 0,
-    FOREIGN KEY(user_id) REFERENCES users(id)
-  )`);
-
-  db.run(`CREATE TABLE IF NOT EXISTS items (
-    id TEXT PRIMARY KEY, user_id TEXT, name TEXT, sale_price REAL, stock_quantity REAL, 
-    hsn_code TEXT, tax_rate REAL, 
-    updated_at INTEGER, is_deleted INTEGER DEFAULT 0,
-    FOREIGN KEY(user_id) REFERENCES users(id)
-  )`);
-
-  db.run(`CREATE TABLE IF NOT EXISTS invoices (
-    id TEXT PRIMARY KEY, user_id TEXT, invoice_number TEXT, date INTEGER, party_id TEXT, 
-    total_amount REAL, updated_at INTEGER, is_deleted INTEGER DEFAULT 0,
-    FOREIGN KEY(user_id) REFERENCES users(id)
-  )`);
-});
 
 // --- AUTH MIDDLEWARE ---
 const authenticateToken = (req, res, next) => {
