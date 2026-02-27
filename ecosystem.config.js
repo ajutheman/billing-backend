@@ -1,12 +1,24 @@
 module.exports = {
-    apps: [{
-        name: "billing-backend",
-        script: "./server.js",
-        env: {
-            NODE_ENV: "production",
-            PORT: 3000,
-            DATABASE_URL: "./cloud_db.sqlite",
-            JWT_SECRET: "super_secret_billing_app_key_2026"
+    apps: [
+        {
+            name: "billing-prod",
+            script: "./server.js",
+            env: {
+                NODE_ENV: "production",
+                PORT: 4000,
+                DATABASE_URL: "postgres://billing_user:StrongPassword123@localhost:5432/billing_db",
+                JWT_SECRET: "prod_secret_key_2026"
+            }
+        },
+        {
+            name: "billing-staging",
+            script: "./server.js",
+            env: {
+                NODE_ENV: "staging",
+                PORT: 4001,
+                DATABASE_URL: "postgres://billing_user:StrongPassword123@localhost:5432/billing_staging_db",
+                JWT_SECRET: "staging_secret_key_2026"
+            }
         }
-    }]
+    ]
 }
