@@ -7,7 +7,7 @@ module.exports = {
                 NODE_ENV: "production",
                 PORT: 4000,
                 DATABASE_URL: "postgres://billing_user:StrongPassword123@localhost:5432/billing_db",
-                JWT_SECRET: "prod_secret_key_2026"
+                JWT_SECRET: "termux_live_secret_2026"
             }
         },
         {
