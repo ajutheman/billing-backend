@@ -6,7 +6,7 @@ module.exports = {
             env: {
                 NODE_ENV: "production",
                 PORT: 5000,
-                DATABASE_URL: "./cloud_db.sqlite",
+                DATABASE_URL: "postgres://billing_user:StrongPassword123@localhost:5432/billing_prod",
                 JWT_SECRET: "termux_live_secret_2026",
                 BASE_URL: "https://app.ajmallab.site"
             }
@@ -16,7 +16,7 @@ module.exports = {
             script: "./src/jobs/worker.js",
             env: {
                 NODE_ENV: "production",
-                DATABASE_URL: "./cloud_db.sqlite",
+                DATABASE_URL: "postgres://billing_user:StrongPassword123@localhost:5432/billing_prod",
                 JWT_SECRET: "termux_live_secret_2026",
                 BASE_URL: "https://app.ajmallab.site"
             }
