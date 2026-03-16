@@ -9,9 +9,22 @@ const { authenticateToken } = require('../../middleware/auth');
  *   description: Security and Change Logs
  */
 
-/** @swagger [GET] /audit/logs */
+/**
+ * @swagger
+ * /audit/logs:
+ *   get:
+ *     summary: Get system audit logs
+ *     tags: [Audit]
+ */
 router.get('/logs', authenticateToken, (req, res) => res.json([]));
-/** @swagger [GET] /audit/events */
+
+/**
+ * @swagger
+ * /audit/events:
+ *   get:
+ *     summary: Get security events
+ *     tags: [Audit]
+ */
 router.get('/events', authenticateToken, (req, res) => res.json([]));
 
 module.exports = router;
