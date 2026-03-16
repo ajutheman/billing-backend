@@ -170,6 +170,7 @@ const initDb = async () => {
     subtotal REAL, discount_amount REAL, round_off_amount REAL,
     total_cgst REAL DEFAULT 0.0, total_sgst REAL DEFAULT 0.0, total_igst REAL DEFAULT 0.0,
     total_tax_amount REAL, total_amount REAL NOT NULL, balance_due REAL,
+    payment_type TEXT, bank_name TEXT, account_number TEXT, ifsc_code TEXT,
     notes TEXT, po_number TEXT, vehicle_number TEXT, eway_bill_number TEXT, transport_name TEXT,
     updated_at BIGINT, created_at BIGINT,
     is_deleted INTEGER DEFAULT 0
