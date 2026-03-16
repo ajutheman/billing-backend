@@ -30,8 +30,11 @@ app.use(bodyParser.json());
 app.use((req, res, next) => {
   const host = req.get('host');
   
-  if (host === 'billing.ajmallab.site') {
-    // Serve Mobile/User Portal
+  if (host === 'billing-app.ajmallab.site') {
+    // Serve Flutter Web/Mobile Portal
+    express.static(path.join(__dirname, '../public_mobile'))(req, res, next);
+  } else if (host === 'billing.ajmallab.site') {
+    // Serve Mobile/User Portal (Custom Landing)
     express.static(path.join(__dirname, '../public_user'))(req, res, next);
   } else {
     // Default to Admin Dashboard
@@ -101,7 +104,10 @@ app.use((req, res, next) => {
   }
   
   const host = req.get('host');
-  const publicDir = host === 'billing.ajmallab.site' ? '../public_user' : '../public';
+  let publicDir = '../public';
+  if (host === 'billing-app.ajmallab.site') publicDir = '../public_mobile';
+  else if (host === 'billing.ajmallab.site') publicDir = '../public_user';
+  
   res.sendFile(path.join(__dirname, publicDir, 'index.html'));
 });
 
