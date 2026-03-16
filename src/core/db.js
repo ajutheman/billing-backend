@@ -18,19 +18,24 @@ if (DB_TYPE === 'postgres') {
       } else {
         console.log('Connected to the SQLite database.');
       }
-    });
+    }
   } catch (e) {
     console.error('CRITICAL: SQLite3 module not found. Run "npm install sqlite3".');
-    // Initialize a dummy db object to avoid serialize error if possible, 
-    // but better to just exit if DB is essential.
     process.exit(1); 
   }
 }
 
+const translateQuery = (query) => {
+  if (DB_TYPE !== 'postgres') return query;
+  let index = 1;
+  return query.replace(/\?/g, () => `$${index++}`);
+};
+
 const dbRun = (query, params = []) => {
   return new Promise((resolve, reject) => {
+    const finalQuery = translateQuery(query);
     if (DB_TYPE === 'postgres') {
-      db.query(query, params, (err, res) => {
+      db.query(finalQuery, params, (err, res) => {
         if (err) reject(err);
         else resolve(res);
       });
@@ -45,8 +50,9 @@ const dbRun = (query, params = []) => {
 
 const dbGet = (query, params = []) => {
   return new Promise((resolve, reject) => {
+    const finalQuery = translateQuery(query);
     if (DB_TYPE === 'postgres') {
-      db.query(query, params, (err, res) => {
+      db.query(finalQuery, params, (err, res) => {
         if (err) reject(err);
         else resolve(res.rows[0]);
       });
@@ -61,8 +67,9 @@ const dbGet = (query, params = []) => {
 
 const dbAll = (query, params = []) => {
   return new Promise((resolve, reject) => {
+    const finalQuery = translateQuery(query);
     if (DB_TYPE === 'postgres') {
-      db.query(query, params, (err, res) => {
+      db.query(finalQuery, params, (err, res) => {
         if (err) reject(err);
         else resolve(res.rows);
       });
