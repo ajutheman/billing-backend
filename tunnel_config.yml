@@ -1,0 +1,20 @@
+tunnel: nokia-server-fix
+credentials-file: /data/data/com.termux/files/home/.cloudflared/bb80f202-5c5f-4edf-8e82-cb0c754bfe28.json
+
+ingress:
+  - hostname: api.ajmallab.site
+    service: http://localhost:5000
+
+  - hostname: billing.ajmallab.site
+    service: http://localhost:5000
+
+  - hostname: app.ajmallab.site
+    service: http://localhost:5000
+
+  - hostname: dashboard.ajmallab.site
+    service: http://localhost:6000
+
+  - hostname: mqtt.ajmallab.site
+    service: http://localhost:9001
+
+  - service: http_status:404

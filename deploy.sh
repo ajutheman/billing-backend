@@ -1,6 +1,10 @@
 #!/bin/bash
-echo "🚀 Starting Deployment..."
+echo "🚀 Starting Enterprise Deployment..."
 git pull origin main
 npm install
-pm2 restart billing-prod
+
+echo "🔄 Restarting API and Background Worker..."
+# Restarting via ecosystem handles both processes
+pm2 restart ecosystem.config.js || pm2 start ecosystem.config.js
+
 echo "✅ Deployment Successful!"

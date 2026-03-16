@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Enterprise ERP | Intelligence Dashboard</title>
+  <link rel="stylesheet" href="css/dashboard.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="dashboard-container">
+    <aside class="sidebar">
+      <div class="logo-area">
+        <div class="logo-icon">📊</div>
+        <div class="logo-text">ERP FLOW</div>
+      </div>
+      <ul class="nav-links">
+        <li class="nav-item">
+          <a href="#" class="nav-link active" data-module="dashboard">Dashboard Overview</a>
+        </li>
+        <li class="nav-item">
+          <a href="#" class="nav-link" data-module="firms">Branches & Firms</a>
+        </li>
+        <li class="nav-item">
+          <a href="#" class="nav-link" data-module="items">Inventory Control</a>
+        </li>
+        <li class="nav-item">
+          <a href="#" class="nav-link" data-module="invoices">Billing & Registry</a>
+        </li>
+        <li class="nav-item">
+          <a href="#" class="nav-link" data-module="parties">Partner Registry</a>
+        </li>
+      </ul>
+      <div class="bottom-nav">
+        <a href="/api-docs" target="_blank" class="nav-link">API Docs</a>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header class="header">
+        <div class="header-left">
+          <h1>Enterprise Pulse</h1>
+          <p style="color: var(--text-secondary); font-size: 0.875rem;">Real-time intelligence from Nokia Server</p>
+        </div>
+        <div class="header-right">
+          <input type="text" class="search-bar" placeholder="Intelligence search...">
+        </div>
+      </header>
+
+      <section id="dashboard" class="animate-fade">
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-label">Total Revenue</div>
+            <div class="stat-value">₹ 0.00</div>
+            <div class="stat-trend trend-up">↑ 12.5% from last month</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Active Invoices</div>
+            <div class="stat-value" id="invoice-count">0</div>
+            <div class="stat-trend"><button class="badge badge-blue" onclick="openModal('party-modal')">+ Add Party</button></div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Stock Value</div>
+            <div class="stat-value">₹ 0.00</div>
+            <div class="stat-trend trend-up">Stock Pulse: Healthy</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Total Branches</div>
+            <div class="stat-value" id="firm-count">0</div>
+            <div class="stat-trend"><button class="badge badge-blue" onclick="openModal('firm-modal')">+ Add Branch</button></div>
+          </div>
+        </div>
+
+        <div class="module-grid">
+          <div class="glass-panel">
+            <div class="panel-title">
+              Recent Transactions
+              <button class="badge badge-blue">View All</button>
+            </div>
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Entity</th>
+                  <th>Amount</th>
+                  <th>Status</th>
+                  <th>Timestamp</th>
+                </tr>
+              </thead>
+              <tbody id="recent-transactions">
+                <!-- Dynamically Populated -->
+              </tbody>
+            </table>
+          </div>
+
+          <div class="glass-panel">
+            <div class="panel-title">
+              Live Inventory Status
+              <button class="badge badge-blue" onclick="openModal('item-modal')">+ Add Item</button>
+            </div>
+            <div id="inventory-list">
+              <!-- Dynamically Populated -->
+              <p style="color: var(--text-secondary)">Scanning items...</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Firm Modal -->
+  <div id="firm-modal" class="modal-overlay">
+    <div class="modal-content">
+      <h2 style="margin-bottom: 1.5rem;">Register New Branch</h2>
+      <form id="firm-form">
+        <div class="form-group">
+          <label>Company Name</label>
+          <input type="text" name="name" class="form-input" required>
+        </div>
+        <div class="form-group">
+          <label>GSTIN</label>
+          <input type="text" name="gstin" class="form-input">
+        </div>
+        <div class="form-group">
+          <label>Address</label>
+          <input type="text" name="address" class="form-input">
+        </div>
+        <button type="submit" class="btn-primary">Save Enterprise Branch</button>
+        <button type="button" class="btn-primary" style="background: transparent; border: 1px solid var(--card-border); margin-top: 0.5rem;" onclick="closeModal('firm-modal')">Cancel</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Item Modal -->
+  <div id="item-modal" class="modal-overlay">
+    <div class="modal-content">
+      <h2 style="margin-bottom: 1.5rem;">Add New Inventory Item</h2>
+      <form id="item-form">
+        <div class="form-group">
+          <label>Product Name</label>
+          <input type="text" name="name" class="form-input" required>
+        </div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+          <div class="form-group">
+            <label>Sale Price</label>
+            <input type="number" name="sale_price" class="form-input" required>
+          </div>
+          <div class="form-group">
+            <label>Stock Qty</label>
+            <input type="number" name="stock_quantity" class="form-input" value="0">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Branch ID (Required)</label>
+          <input type="text" name="firm_id" class="form-input" placeholder="e.g. firm_123" required>
+        </div>
+        <button type="submit" class="btn-primary">Add to Inventory</button>
+        <button type="button" class="btn-primary" style="background: transparent; border: 1px solid var(--card-border); margin-top: 0.5rem;" onclick="closeModal('item-modal')">Cancel</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Party Modal -->
+  <div id="party-modal" class="modal-overlay">
+    <div class="modal-content">
+      <h2 style="margin-bottom: 1.5rem;">Register New Party</h2>
+      <form id="party-form">
+        <div class="form-group">
+          <label>Party Name (Customer/Vendor)</label>
+          <input type="text" name="name" class="form-input" required>
+        </div>
+        <div class="form-group">
+          <label>Type</label>
+          <select name="type" class="form-input" style="background: #1e293b;">
+            <option value="CUSTOMER">Customer (Debtor)</option>
+            <option value="SUPPLIER">Supplier (Creditor)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Phone / Contact</label>
+          <input type="text" name="phone" class="form-input">
+        </div>
+        <div class="form-group">
+          <label>Branch ID (Required)</label>
+          <input type="text" name="firm_id" class="form-input" required>
+        </div>
+        <button type="submit" class="btn-primary">Register Party</button>
+        <button type="button" class="btn-primary" style="background: transparent; border: 1px solid var(--card-border); margin-top: 0.5rem;" onclick="closeModal('party-modal')">Cancel</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="js/app.js"></script>
+</body>
+</html>

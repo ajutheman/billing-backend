@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>ERP Mobile | Field Portal</title>
+  <link rel="stylesheet" href="css/mobile.css">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header class="mobile-header">
+    <div class="header-content">
+      <h2 style="font-size: 1.25rem;">Staff Registry</h2>
+      <p style="font-size: 0.75rem; color: var(--text-muted);">Synced to Core Cloud</p>
+    </div>
+    <div class="profile-circle" id="user-initials">AD</div>
+  </header>
+
+  <div class="summary-container">
+    <div class="m-card animate-up" style="animation-delay: 0.1s">
+      <div class="card-icon">💵</div>
+      <div class="card-title">My Sales</div>
+      <div class="card-value">₹ 0</div>
+    </div>
+    <div class="m-card animate-up" style="animation-delay: 0.2s">
+      <div class="card-icon">🏷️</div>
+      <div class="card-title">Stock Check</div>
+      <div class="card-value" id="stock-count">Pulse</div>
+    </div>
+  </div>
+
+  <section class="action-center animate-up" style="animation-delay: 0.3s">
+    <div class="action-title">Quick Actions</div>
+    <button class="action-btn" onclick="openPOS()">
+      <span>📷</span> New Quick Invoice
+    </button>
+    <button class="action-btn" style="background: var(--surface); box-shadow: none;" onclick="location.reload()">
+      <span>🔄</span> Sync Data Offline
+    </button>
+  </section>
+
+  <!-- POS Bottom Sheet -->
+  <div id="pos-sheet" class="sheet-overlay">
+    <div class="bottom-sheet">
+      <div id="step-1" class="pos-step active">
+        <h3 style="margin-bottom: 1rem;">1. Select Customer</h3>
+        <input type="text" class="item-search-input" placeholder="Search customer name..." id="party-search">
+        <div id="party-list" style="max-height: 200px; overflow-y: auto;">
+          <div class="cart-item" onclick="selectParty('Walking Customer', 'party_walking')">Walking Customer (Default)</div>
+        </div>
+      </div>
+
+      <div id="step-2" class="pos-step">
+        <h3 style="margin-bottom: 1rem;">2. Add Items</h3>
+        <input type="text" class="item-search-input" placeholder="Search item name/SKU..." id="item-search">
+        <div id="cart-contents" style="margin-bottom: 1rem;">
+          <!-- Cart items show here -->
+        </div>
+        <div id="search-results" style="max-height: 150px; overflow-y: auto;"></div>
+        <button class="action-btn" onclick="nextStep(3)">Review Invoice</button>
+      </div>
+
+      <div id="step-3" class="pos-step">
+        <h3 style="margin-bottom: 1rem;">3. Confirm Invoice</h3>
+        <div class="cart-footer">
+          <div class="total-row">
+            <span>Total Amount</span>
+            <span id="pos-total">₹ 0</span>
+          </div>
+          <button class="action-btn" id="confirm-pos-btn">Post Final Invoice 🚀</button>
+          <button class="action-btn" style="background: transparent; box-shadow: none;" onclick="closePOS()">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="action-center animate-up" style="animation-delay: 0.4s">
+    <div class="action-title">Recent My Activity</div>
+    <div id="activity-feed">
+      <p style="color: var(--text-muted); text-align: center; padding: 2rem;">No recent sync logs</p>
+    </div>
+  </div>
+
+  <nav class="bottom-nav">
+    <a href="#" class="nav-item active">
+      <span class="nav-icon">🏠</span>
+      <span>Home</span>
+    </a>
+    <a href="#" class="nav-item" onclick="alert('Opening Inventory...')">
+      <span class="nav-icon">📦</span>
+      <span>Stock</span>
+    </a>
+    <a href="#" class="nav-item" onclick="alert('Opening Customers...')">
+      <span class="nav-icon">👥</span>
+      <span>Parties</span>
+    </a>
+    <a href="#" class="nav-item" onclick="alert('Opening Settings...')">
+      <span class="nav-icon">⚙️</span>
+      <span>Settings</span>
+    </a>
+  </nav>
+
+  <script src="js/mobile.js"></script>
+</body>
+</html>
