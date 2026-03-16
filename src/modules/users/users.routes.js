@@ -41,7 +41,13 @@ router.get('/', authenticateToken, async (req, res) => {
   } catch (err) { res.status(500).json({ error: err.message }); }
 });
 
-/** @swagger [GET] /users/{id} */
+/**
+ * @swagger
+ * /users/{id}:
+ *   get:
+ *     summary: Get user by ID
+ *     tags: [Users]
+ */
 router.get('/:id', authenticateToken, async (req, res) => {
   try {
     const user = await dbGet("SELECT id, username, email FROM users WHERE id = ?", [req.params.id]);
@@ -49,9 +55,22 @@ router.get('/:id', authenticateToken, async (req, res) => {
   } catch (err) { res.status(500).json({ error: err.message }); }
 });
 
-/** @swagger [PUT] /users/{id} */
+/**
+ * @swagger
+ * /users/{id}:
+ *   put:
+ *     summary: Update user
+ *     tags: [Users]
+ */
 router.put('/:id', authenticateToken, (req, res) => res.json({ success: true }));
-/** @swagger [DELETE] /users/{id} */
+
+/**
+ * @swagger
+ * /users/{id}:
+ *   delete:
+ *     summary: Delete user
+ *     tags: [Users]
+ */
 router.delete('/:id', authenticateToken, (req, res) => res.json({ success: true }));
 
 // Roles & Permissions
@@ -76,9 +95,22 @@ router.put('/:id/permissions', authenticateToken, (req, res) => res.json({ succe
 router.get('/:id/activity', authenticateToken, (req, res) => res.json([]));
 /** @swagger [GET] /users/{id}/login-history */
 router.get('/:id/login-history', authenticateToken, (req, res) => res.json([]));
-/** @swagger [POST] /users/{id}/lock */
+/**
+ * @swagger
+ * /users/{id}/lock:
+ *   post:
+ *     summary: Lock user account
+ *     tags: [Users]
+ */
 router.post('/:id/lock', authenticateToken, (req, res) => res.json({ success: true }));
-/** @swagger [POST] /users/{id}/unlock */
+
+/**
+ * @swagger
+ * /users/{id}/unlock:
+ *   post:
+ *     summary: Unlock user account
+ *     tags: [Users]
+ */
 router.post('/:id/unlock', authenticateToken, (req, res) => res.json({ success: true }));
 
 // Salary & HR

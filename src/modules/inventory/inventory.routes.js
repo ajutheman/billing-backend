@@ -10,11 +10,31 @@ const { dbRun, dbGet, dbAll } = require('../../core/db');
  *   description: Stock adjustments and Warehouse management
  */
 
-/** @swagger [POST] /inventory/adjust */
+/**
+ * @swagger
+ * /inventory/adjust:
+ *   post:
+ *     summary: Adjust inventory levels
+ *     tags: [Inventory]
+ */
 router.post('/adjust', authenticateToken, (req, res) => res.json({ success: true }));
-/** @swagger [POST] /inventory/transfer */
+
+/**
+ * @swagger
+ * /inventory/transfer:
+ *   post:
+ *     summary: Transfer items between warehouses
+ *     tags: [Inventory]
+ */
 router.post('/transfer', authenticateToken, (req, res) => res.json({ success: true }));
-/** @swagger [GET] /inventory/low-stock */
+
+/**
+ * @swagger
+ * /inventory/low-stock:
+ *   get:
+ *     summary: Get low stock alerts
+ *     tags: [Inventory]
+ */
 router.get('/low-stock', authenticateToken, (req, res) => res.json([]));
 
 module.exports = router;

@@ -62,17 +62,50 @@ router.get('/:id', authenticateToken, async (req, res) => {
   } catch (err) { res.status(500).json({ error: err.message }); }
 });
 
-/** @swagger [PUT] /invoices/{id} */
+/**
+ * @swagger
+ * /invoices/{id}:
+ *   put:
+ *     summary: Update invoice
+ *     tags: [Invoices]
+ */
 router.put('/:id', authenticateToken, (req, res) => res.json({ success: true }));
-/** @swagger [DELETE] /invoices/{id} */
+
+/**
+ * @swagger
+ * /invoices/{id}:
+ *   delete:
+ *     summary: Delete invoice
+ *     tags: [Invoices]
+ */
 router.delete('/:id', authenticateToken, (req, res) => res.json({ success: true }));
 
 // Invoice Actions
-/** @swagger [POST] /invoices/{id}/cancel */
+/**
+ * @swagger
+ * /invoices/{id}/cancel:
+ *   post:
+ *     summary: Cancel invoice
+ *     tags: [Invoices]
+ */
 router.post('/:id/cancel', authenticateToken, (req, res) => res.json({ success: true }));
-/** @swagger [POST] /invoices/{id}/return */
+
+/**
+ * @swagger
+ * /invoices/{id}/return:
+ *   post:
+ *     summary: Create sales return for invoice
+ *     tags: [Invoices]
+ */
 router.post('/:id/return', authenticateToken, (req, res) => res.json({ success: true }));
-/** @swagger [POST] /invoices/{id}/duplicate */
+
+/**
+ * @swagger
+ * /invoices/{id}/duplicate:
+ *   post:
+ *     summary: Duplicate invoice
+ *     tags: [Invoices]
+ */
 router.post('/:id/duplicate', authenticateToken, (req, res) => res.json({ success: true }));
 
 // Payment
