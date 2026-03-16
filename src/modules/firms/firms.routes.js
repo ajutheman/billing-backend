@@ -11,7 +11,13 @@ const { authenticateToken } = require('../../middleware/auth');
  */
 
 // Basic CRUD
-/** @swagger [POST] /firms */
+/**
+ * @swagger
+ * /firms:
+ *   post:
+ *     summary: Create a new firm
+ *     tags: [Firms]
+ */
 router.post('/', authenticateToken, async (req, res) => {
   const { name, address, phone, email, gstin } = req.body;
   const id = `firm_${Date.now()}`;
@@ -22,7 +28,13 @@ router.post('/', authenticateToken, async (req, res) => {
   } catch (err) { res.status(500).json({ error: err.message }); }
 });
 
-/** @swagger [GET] /firms */
+/**
+ * @swagger
+ * /firms:
+ *   get:
+ *     summary: Get all firms
+ *     tags: [Firms]
+ */
 router.get('/', authenticateToken, async (req, res) => {
   try {
     const firms = await dbAll("SELECT * FROM firms WHERE is_deleted = 0");
@@ -30,7 +42,13 @@ router.get('/', authenticateToken, async (req, res) => {
   } catch (err) { res.status(500).json({ error: err.message }); }
 });
 
-/** @swagger [GET] /firms/{id} */
+/**
+ * @swagger
+ * /firms/{id}:
+ *   get:
+ *     summary: Get firm by ID
+ *     tags: [Firms]
+ */
 router.get('/:id', authenticateToken, async (req, res) => {
   try {
     const firm = await dbGet("SELECT * FROM firms WHERE id = ?", [req.params.id]);

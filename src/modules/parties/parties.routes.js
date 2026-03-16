@@ -11,7 +11,13 @@ const { authenticateToken } = require('../../middleware/auth');
  */
 
 // Basic CRUD
-/** @swagger [POST] /parties */
+/**
+ * @swagger
+ * /parties:
+ *   post:
+ *     summary: Create a new party
+ *     tags: [Parties]
+ */
 router.post('/', authenticateToken, async (req, res) => {
   const { firm_id, name, type, phone, email } = req.body;
   const id = `party_${Date.now()}`;
@@ -22,7 +28,13 @@ router.post('/', authenticateToken, async (req, res) => {
   } catch (err) { res.status(500).json({ error: err.message }); }
 });
 
-/** @swagger [GET] /parties */
+/**
+ * @swagger
+ * /parties:
+ *   get:
+ *     summary: Get all parties
+ *     tags: [Parties]
+ */
 router.get('/', authenticateToken, async (req, res) => {
   const { type, firm_id } = req.query;
   try {

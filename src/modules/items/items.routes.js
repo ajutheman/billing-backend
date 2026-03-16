@@ -11,7 +11,13 @@ const { authenticateToken } = require('../../middleware/auth');
  */
 
 // Basic CRUD
-/** @swagger [POST] /items */
+/**
+ * @swagger
+ * /items:
+ *   post:
+ *     summary: Create a new item
+ *     tags: [Items]
+ */
 router.post('/', authenticateToken, async (req, res) => {
   const { firm_id, name, sale_price, purchase_price } = req.body;
   const id = `item_${Date.now()}`;
@@ -22,7 +28,13 @@ router.post('/', authenticateToken, async (req, res) => {
   } catch (err) { res.status(500).json({ error: err.message }); }
 });
 
-/** @swagger [GET] /items */
+/**
+ * @swagger
+ * /items:
+ *   get:
+ *     summary: Get all items
+ *     tags: [Items]
+ */
 router.get('/', authenticateToken, async (req, res) => {
   const { firm_id } = req.query;
   try {

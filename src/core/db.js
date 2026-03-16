@@ -18,7 +18,7 @@ if (DB_TYPE === 'postgres') {
       } else {
         console.log('Connected to the SQLite database.');
       }
-    }
+    });
   } catch (e) {
     console.error('CRITICAL: SQLite3 module not found. Run "npm install sqlite3".');
     process.exit(1); 

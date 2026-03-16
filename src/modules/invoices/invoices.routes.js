@@ -11,7 +11,13 @@ const { authenticateToken } = require('../../middleware/auth');
  */
 
 // Basic CRUD
-/** @swagger [POST] /invoices */
+/**
+ * @swagger
+ * /invoices:
+ *   post:
+ *     summary: Create a new invoice
+ *     tags: [Invoices]
+ */
 router.post('/', authenticateToken, async (req, res) => {
   const { firm_id, party_id, items, total_amount } = req.body;
   const id = `inv_${Date.now()}`;
@@ -26,7 +32,13 @@ router.post('/', authenticateToken, async (req, res) => {
   } catch (err) { res.status(500).json({ error: err.message }); }
 });
 
-/** @swagger [GET] /invoices */
+/**
+ * @swagger
+ * /invoices:
+ *   get:
+ *     summary: Get all invoices
+ *     tags: [Invoices]
+ */
 router.get('/', authenticateToken, async (req, res) => {
   const { firm_id } = req.query;
   try {
@@ -36,7 +48,13 @@ router.get('/', authenticateToken, async (req, res) => {
   } catch (err) { res.status(500).json({ error: err.message }); }
 });
 
-/** @swagger [GET] /invoices/{id} */
+/**
+ * @swagger
+ * /invoices/{id}:
+ *   get:
+ *     summary: Get invoice by ID
+ *     tags: [Invoices]
+ */
 router.get('/:id', authenticateToken, async (req, res) => {
   try {
     const invoice = await dbGet("SELECT * FROM invoices WHERE id = ?", [req.params.id]);
