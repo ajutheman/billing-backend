@@ -13,11 +13,17 @@ if (DB_TYPE === 'postgres') {
   try {
     sqlite3 = require('sqlite3').verbose();
     db = new sqlite3.Database(process.env.DATABASE_URL || './cloud_db.sqlite', (err) => {
-      if (err) console.error(err.message);
-      console.log('Connected to the SQLite database.');
+      if (err) {
+        console.error('SQLite Database Connection Error:', err.message);
+      } else {
+        console.log('Connected to the SQLite database.');
+      }
     });
   } catch (e) {
-    console.warn('SQLite3 module not found. Ensure it is installed if using SQLite.');
+    console.error('CRITICAL: SQLite3 module not found. Run "npm install sqlite3".');
+    // Initialize a dummy db object to avoid serialize error if possible, 
+    // but better to just exit if DB is essential.
+    process.exit(1); 
   }
 }
 

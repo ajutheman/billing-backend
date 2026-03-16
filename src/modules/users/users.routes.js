@@ -11,7 +11,13 @@ const { dbRun, dbGet, dbAll } = require('../../core/db');
  */
 
 // Basic User CRUD
-/** @swagger [POST] /users */
+/**
+ * @swagger
+ * /users:
+ *   post:
+ *     summary: Create a new user
+ *     tags: [Users]
+ */
 router.post('/', authenticateToken, async (req, res) => {
   const { username, email, role_id } = req.body;
   const id = `user_${Date.now()}`;
@@ -21,7 +27,13 @@ router.post('/', authenticateToken, async (req, res) => {
   } catch (err) { res.status(500).json({ error: err.message }); }
 });
 
-/** @swagger [GET] /users */
+/**
+ * @swagger
+ * /users:
+ *   get:
+ *     summary: Get all users
+ *     tags: [Users]
+ */
 router.get('/', authenticateToken, async (req, res) => {
   try {
     const users = await dbAll("SELECT id, username, email, created_at FROM users");
