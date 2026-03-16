@@ -56,16 +56,41 @@ router.get('/:id', authenticateToken, async (req, res) => {
   } catch (err) { res.status(500).json({ error: err.message }); }
 });
 
-/** @swagger [PUT] /firms/{id} */
+/**
+ * @swagger
+ * /firms/{id}:
+ *   put:
+ *     summary: Update firm
+ *     tags: [Firms]
+ */
 router.put('/:id', authenticateToken, (req, res) => res.json({ success: true }));
 
-/** @swagger [DELETE] /firms/{id} */
+/**
+ * @swagger
+ * /firms/{id}:
+ *   delete:
+ *     summary: Delete firm
+ *     tags: [Firms]
+ */
 router.delete('/:id', authenticateToken, (req, res) => res.json({ success: true }));
 
 // Firm Settings
-/** @swagger [GET] /firms/{id}/settings */
+/**
+ * @swagger
+ * /firms/{id}/settings:
+ *   get:
+ *     summary: Get firm settings
+ *     tags: [Firms]
+ */
 router.get('/:id/settings', authenticateToken, (req, res) => res.json({ theme: 'dark', currency: 'INR' }));
-/** @swagger [PUT] /firms/{id}/settings */
+
+/**
+ * @swagger
+ * /firms/{id}/settings:
+ *   put:
+ *     summary: Update firm settings
+ *     tags: [Firms]
+ */
 router.put('/:id/settings', authenticateToken, (req, res) => res.json({ success: true }));
 
 // Branches Management

@@ -52,9 +52,22 @@ router.get('/:id', authenticateToken, async (req, res) => {
   } catch (err) { res.status(500).json({ error: err.message }); }
 });
 
-/** @swagger [PUT] /items/{id} */
+/**
+ * @swagger
+ * /items/{id}:
+ *   put:
+ *     summary: Update item
+ *     tags: [Items]
+ */
 router.put('/:id', authenticateToken, (req, res) => res.json({ success: true }));
-/** @swagger [DELETE] /items/{id} */
+
+/**
+ * @swagger
+ * /items/{id}:
+ *   delete:
+ *     summary: Delete item
+ *     tags: [Items]
+ */
 router.delete('/:id', authenticateToken, (req, res) => res.json({ success: true }));
 
 // Lookups

@@ -55,9 +55,22 @@ router.get('/:id', authenticateToken, async (req, res) => {
   } catch (err) { res.status(500).json({ error: err.message }); }
 });
 
-/** @swagger [PUT] /parties/{id} */
+/**
+ * @swagger
+ * /parties/{id}:
+ *   put:
+ *     summary: Update party
+ *     tags: [Parties]
+ */
 router.put('/:id', authenticateToken, (req, res) => res.json({ success: true }));
-/** @swagger [DELETE] /parties/{id} */
+
+/**
+ * @swagger
+ * /parties/{id}:
+ *   delete:
+ *     summary: Delete party
+ *     tags: [Parties]
+ */
 router.delete('/:id', authenticateToken, (req, res) => res.json({ success: true }));
 
 // Ledger & Balances
